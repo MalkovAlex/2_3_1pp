@@ -11,21 +11,21 @@ import web.service.UserService;
 @RequestMapping("/")
 public class UsersController {
 
-    @GetMapping
-    public String showGet(Model model) {
-        return getUsersView(model);
-    }
+//    @GetMapping
+//    public String showGet(Model model) {
+//        return getUsersView(model);
+//    }
 
-    @PostMapping
-    public String showPost(Model model) {
-        return getUsersView(model);
-    }
-
-    private String getUsersView(Model model) {
-        model.addAttribute("message", "Список пользователей");
-        model.addAttribute("url", "/users");
-        return "index";
-    }
+//    @PostMapping
+//    public String showPost(Model model) {
+//        return getUsersView(model);
+//    }
+//
+//    private String getUsersView(Model model) {
+//        model.addAttribute("message", "Список пользователей");
+//        model.addAttribute("url", "/users");
+//        return "index";
+//    }
 
     private final UserService userService;
 
