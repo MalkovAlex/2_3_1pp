@@ -12,18 +12,18 @@ public class UserDaoimpl implements UserDao {
 
     private final EntityManager entityManager;
 
-    public UserDaoimpl (EntityManager entityManager) {
+    public UserDaoimpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public void create(User user) {
+    public void createUser(User user) {
         entityManager.joinTransaction();
         entityManager.persist(user);
     }
 
     @Override
-    public User show(long id) {
+    public User getUser(long id) {
         TypedQuery<User> query = entityManager.createQuery("from User where id=:id", User.class);
         query.setParameter("id", id);
         return query.getSingleResult();
@@ -36,9 +36,9 @@ public class UserDaoimpl implements UserDao {
     }
 
     @Override
-    public void update(long id, User user) {
+    public void updateUser(long id, User user) {
         entityManager.joinTransaction();
-        User u = show(id);
+        User u = getUser(id);
         u.setName(user.getName());
         u.setLastName(user.getLastName());
         u.setEmail(user.getEmail());
@@ -46,23 +46,23 @@ public class UserDaoimpl implements UserDao {
     }
 
     @Override
-    public void delete(long id) {
+    public void deleteUser(long id) {
         entityManager.joinTransaction();
         try {
-            entityManager.remove(show(id));
+            entityManager.remove(getUser(id));
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
 
     @Override
-    public void delete(User user) {
+    public void deleteUser(User user) {
         entityManager.joinTransaction();
-        find(user).forEach(u -> entityManager.remove(u.getId()));
+        findUser(user).forEach(u -> entityManager.remove(u.getId()));
     }
 
     @Override
-    public List<User> find(User user) {
+    public List<User> findUser(User user) {
         TypedQuery<User> query = entityManager.createQuery("from User where name=:nm and lastName=:lnm and email=:eml", User.class);
         query.setParameter("nm", user.getName());
         query.setParameter("lnm", user.getLastName());
